@@ -1,10 +1,11 @@
 function grabWeather(){
 const apiKey = '917f9c9859212ef07d7a25b9d55a0ea1'
                 
-const lat = 34.0549 
-const lon = 118.2426
-//const apiUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' +  lat + '&lon=' + lon + '&appid=' + apiKey 
-//const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
+const city = document.getElementById('city')
+const state = document.getElementById('state')
+
+
+const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`
 
 fetch(apiUrl)
 //  {
@@ -18,7 +19,8 @@ fetch(apiUrl)
     
   })
   .then(function (data) {
-    console.log(data);
+    const lat = data.coord.lat
+    const lon = data.coord.lon
     console.log(data.data.memes[0].name)
   });
 
