@@ -4,25 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="search-container">
-        <form id="search-form">
-            <input type="text" id="city-input" placeholder="Enter city">
-            <button type="submit">Search</button>
-        </form>
-    </div>
-    <div id="current-weather-container">
-       
-    </div>
-    <div id="forecast-container">
-    
-    </div>
-    <div id="search-history-container">
-     
+    <div class="container">
+        <!-- Search Container -->
+        <div id="search-container" class="my-5">
+            <form id="search-form" class="form-inline justify-content-center">
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="city" placeholder="Enter city">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <input type="text" class="form-control" id="state" placeholder="Enter state">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Search</button>
+            </form>
+        </div>
+
+        <!-- Today's Weather Container -->
+        <div id="todaysWeather" class="card my-5">
+            <div class="card-body">
+                <h5 class="card-title">Today's Weather</h5>
+                <!-- Weather data will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Five-Day Forecast Container -->
+        <div id="fiveDayForecast" class="my-5">
+            <!-- Forecast data will be dynamically inserted here -->
+        </div>
+
+        <!-- Search History Container -->
+        <div id="search-history-container" class="my-5">
+            <!-- Search history data will be dynamically inserted here -->
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="./assets/script.js"></script>
 </body>
 </html>
