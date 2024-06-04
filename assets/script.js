@@ -14,7 +14,11 @@ function grabWeather() {
             console.log(data);
             const lat = data.coord.lat;
             const lon = data.coord.lon;
-            document.getElementById('todaysWeather').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            const temp = data.
+            const wind = data. 
+            const humidity = data. 
+
+            document.getElementById('todaysWeather').innerHTML = "Temperature : " + temp + "wind: " + wind + "humidity: " + humidity 
             
             fiveDayForecast(lat, lon);
         })

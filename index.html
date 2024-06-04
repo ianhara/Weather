@@ -4,24 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Weather Dashboard</h1>
-    </header>
-
-    <div>
-        <label for="city">city:</label>
-        <input type="text" id="city" name="city">
-        <label for="state">state:</label>
-        <input type="text" id="state" name="state">
-        <button onclick="grabWeather()">get the Weather!</button>
+    <div id="search-container">
+        <form id="search-form">
+            <input type="text" id="city-input" placeholder="Enter city">
+            <button type="submit">Search</button>
+        </form>
     </div>
-    <div id="todaysWeather">Today's Weather</div>
+    <div id="current-weather-container">
+       
+    </div>
+    <div id="forecast-container">
+    
+    </div>
+    <div id="search-history-container">
+     
+    </div>
 
-    <div id="fiveDayForecast">Five day forecast</div>
-
-    <div id="previousSearches">Previous searches</div>
-    <script src="assets/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
