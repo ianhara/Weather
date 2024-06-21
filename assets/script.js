@@ -1,3 +1,38 @@
+const apiKey = '917f9c9859212ef07d7a25b9d55a0ea1';
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+        console.log('Form submitted'); // Check if the event listener is triggered
+        const city = document.getElementById('city').value;
+        const state = document.getElementById('state').value;
+        grabWeather(city, state);
+        // add to search history
+        addToSearchHistory(city, state);
+        displayHistory();
+    });
+
+    // display elements from search history
+    displayHistory();
+});
+
+function displayHistory(){
+    const history = JSON.parse(localStorage.getItem("history") || "[]");
+    const historyContainer = document.getElementById("search-history-container");
+    historyContainer.innerHTML = "";
+    history.map(element => {
+        const historyCard = document.createElement('div');
+        historyCard.classList.add('card', 'm-2');
+        historyCard.innerHTML = `
+            <div class="card-body" onclick="grabWeather('${element.city}', '${element.state}')">
+                <p class="card-text">City: ${element.city}</p>
+                <p class="card-text">State: ${element.state}</p>
+            </div>
+        `;
+        historyContainer.appendChild(historyCard)
+    })
+}
+
 function displayCurrentWeather(data) {
     const cityName = data.name;
     const currentDate = new Date(data.dt * 1000); // Convert Unix timestamp to milliseconds
@@ -21,7 +56,7 @@ function displayCurrentWeather(data) {
 }
 
 function displayForecast(data) {
-    const forecastContainer = document.getElementById('forecast-container');
+    const forecastContainer = document.getElementById('fiveDayForecast');
     forecastContainer.innerHTML = ''; // Clear previous forecast data
 
     const forecasts = data.list.filter((item, index) => index % 8 === 0); // Filter forecasts to include only every 8th entry
@@ -48,10 +83,9 @@ function displayForecast(data) {
     });
 }
 
-function grabWeather() {
-    const city = document.getElementById('city').value;
-    const state = document.getElementById('state').value;
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city},${state}&appid=${apiKey}`;
+function grabWeather(city, state) {
+
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city},${state}&appid=${apiKey}&units=metric`;
 
     fetch(apiUrl)
         .then(response => response.json())
@@ -61,7 +95,7 @@ function grabWeather() {
             return data.coord; // Return coordinates for forecast API call
         })
         .then(coord => {
-            const forecastApiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&appid=${apiKey}`;
+            const forecastApiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${coord.lat}&lon=${coord.lon}&appid=${apiKey}&units=metric`;
             return fetch(forecastApiUrl);
         })
         .then(response => response.json())
@@ -74,8 +108,19 @@ function grabWeather() {
         });
 }
 
-document.getElementById('search-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission behavior
-    console.log('Form submitted'); // Check if the event listener is triggered
-    grabWeather();
-});
+function addToSearchHistory(city, state){
+    let historyString = localStorage.getItem("history") || "[]";
+
+    const history = JSON.parse(historyString);
+    const newHistory = [...history, {city, state}];
+
+    localStorage.setItem("history", JSON.stringify(newHistory))
+}
+
+// document.getElementById('search-form').addEventListener('submit', function(event) {
+//     event.preventDefault(); // Prevent the default form submission behavior
+//     console.log('Form submitted'); // Check if the event listener is triggered
+//     const city = document.getElementById('city').value;
+//     const state = document.getElementById('state').value;
+//     grabWeather(city, state);
+// });
